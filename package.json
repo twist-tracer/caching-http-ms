@@ -1,0 +1,10 @@
+{
+  "name": "promo",
+  "private": false,
+  "type": "module",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

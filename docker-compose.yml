@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+    app:
+        image: "node:20-alpine"
+        container_name: "app"
+        command: "./app/server.js"
+        working_dir: "/app"
+        volumes:
+            - .:/app
+        ports:
+            - ${APP_PORT}:${APP_PORT}
+        environment:
+            - APP_PORT=${APP_PORT}
