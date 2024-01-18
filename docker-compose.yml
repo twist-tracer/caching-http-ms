@@ -9,6 +9,4 @@ services:
         volumes:
             - .:/app
         ports:
-            - ${APP_PORT}:${APP_PORT}
-        environment:
-            - APP_PORT=${APP_PORT}
+            - ${APP_PORT:-3001}:3001

@@ -1,11 +1,19 @@
 import express from 'express'
+import yaml from "yaml";
+import fs from "fs";
 
 const app = express()
 
-const APP_PORT = parseInt(process.env.APP_PORT ?? 3001)
+const APP_PORT= 3001
 
-app.get('/', (req, res) => {
-    res.send('Hello world!')
+const routesFile = fs.readFileSync('app/routes.yml')
+
+const routes = yaml.parse(routesFile.toString())
+
+routes.forEach((route) => {
+    app.get(route.route, (req, res) => {
+        res.send(route.route)
+    })
 })
 
 app.listen(APP_PORT, () => {
