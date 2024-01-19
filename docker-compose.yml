@@ -4,8 +4,11 @@ services:
     app:
         image: "node:20-alpine"
         container_name: "app"
+        entrypoint: "./docker/entrypoint.sh"
         command: "./src/server.js"
         working_dir: "/app"
+        environment:
+            - NODE_ENV=${APP_ENV:-production}
         volumes:
             - .:/app
         ports:
