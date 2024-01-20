@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import SwaggerUi from "swagger-ui-express";
-import SwaggerDoc from "swagger-jsdoc";
+import SwaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const router = Router();
 
-const swaggerConfig = SwaggerDoc({
-    swaggerDefinition: {
+const swaggerDocument = SwaggerJsDoc({
+    definition: {
         openapi: '3.0.0',
         info: {
             title: 'Caching http microservice',
@@ -17,10 +17,8 @@ const swaggerConfig = SwaggerDoc({
     ],
 })
 
-router.use(
-    '/docs',
-    SwaggerUi.serve,
-    SwaggerUi.setup(swaggerConfig)
-)
+router.use('/docs', swaggerUi.serve);
+
+router.get('/docs', swaggerUi.setup(swaggerDocument));
 
 export default router;
