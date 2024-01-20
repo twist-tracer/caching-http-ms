@@ -1,6 +1,4 @@
 export default (client) => {
-    console.log('Service constructed');
-
     return {
         /**
          *
@@ -16,7 +14,10 @@ export default (client) => {
          * @returns {string}
          */
         unionProxy: (map) => {
-            return `Aggregated proxy from ` + map.toArray().join(',')
+            return `Aggregated proxy from ` + Object
+                .keys(map)
+                .map((key) => map[key])
+                .join(', ')
         },
         /**
          *

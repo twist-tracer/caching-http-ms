@@ -1,7 +1,7 @@
 app:
   name: Caching http microservice
 
-  route_settings:
+  routes:
     - route: /getCachedResult
       proxy: http://localhost:3002/mocks/getSlow
       cache: "60*1000"
@@ -11,7 +11,7 @@ app:
 
     - route: /getUnionResult
       union:
-        user: http://localhost:3002/mocks/getSlow,
+        user: http://localhost:3002/mocks/getSlow
         post: http://localhost:3001/mocks/getFast
       cache: "3600"
       timeout: 500ms
@@ -20,7 +20,7 @@ app:
 
     - route: /getFirstResult
       first:
-        - http://localhost:3002/mocks/getTimeout,
+        - http://localhost:3002/mocks/getTimeout
         - http://localhost:3001/mocks/getFast
       cache: "3600"
       timeout: 500ms

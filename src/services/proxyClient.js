@@ -2,8 +2,6 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 export default (timeout, retries, factor) => {
-    console.log('Client constructed');
-
     // Works with custom axios instances
     const client = axios.create({
         timeout: timeout,

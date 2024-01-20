@@ -1,6 +1,4 @@
 export default (service) => {
-    console.log('Controller constructed');
-
     return {
         proxy: (url) => (req, res) => {
             console.log(`Handled proxy route: ${req.path}`)

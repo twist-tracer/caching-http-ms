@@ -1,70 +1,42 @@
 import { Router } from 'express';
-import ProxyController from '../../controllers/proxy.js';
+import config from "config";
+import proxyController from '../../controllers/proxy.js';
+import proxyService from "../../services/proxyService.js";
+import proxyClient from "../../services/proxyClient.js";
 import swaggerRouter from './swagger.js'
-import routeSettings from "../../services/routeSettings.js";
-import ProxyService from "../../services/proxyService.js";
-import ProxyClient from "../../services/proxyClient.js";
 
 const router = Router();
 
-/**
- * @openapi
- * /getCachedResult:
- *   get:
- *     description: Return cached result
- */
-router.get('/getCachedResult', (req, res) => {
-    const settings = routeSettings('/getCachedResult');
+/** @type Array<Object> */
+const routes = config.get('app.routes')
 
-    return ProxyController(
-        ProxyService(
-            ProxyClient(
-                settings.timeout,
-                settings.retries,
-                settings.factor,
+routes.forEach((route) => {
+    const controller = proxyController(
+        proxyService(
+            proxyClient(
+                route.timeout,
+                route.retries,
+                route.factor,
             )
         )
-    ).proxy(settings.proxy)(req, res)
-});
+    );
 
-/**
- * @openapi
- * /getUnionResult:
- *   get:
- *     description: Return union result
- */
-router.get('/getUnionResult', (req, res) => {
-    const settings = routeSettings('/getUnionResult');
+    let handler;
+    switch (true) {
+        case route.hasOwnProperty('proxy'):
+            handler = controller.proxy(route.proxy)
+            break
+        case route.hasOwnProperty('union'):
+            handler = controller.union(route.union)
+            break
+        case route.hasOwnProperty('first'):
+            handler = controller.first(route.first)
+            break
+        default:
+            throw new Error(`Invalid route: ${JSON.stringify(route)}`)
+    }
 
-    return ProxyController(
-        ProxyService(
-            ProxyClient(
-                settings.timeout,
-                settings.retries,
-                settings.factor,
-            )
-        )
-    ).union(settings.union)(req, res)
-})
-
-/**
- * @openapi
- * /getFirstResult:
- *   get:
- *     description: Return first result
- */
-router.get('/getFirstResult', (req, res) => {
-    const settings = routeSettings('/getFirstResult');
-
-    return ProxyController(
-        ProxyService(
-            ProxyClient(
-                settings.timeout,
-                settings.retries,
-                settings.factor,
-            )
-        )
-    ).first(settings.first)(req, res)
+    router.get(route.route, handler);
 })
 
 router.use('/', swaggerRouter)

@@ -1,21 +1,25 @@
 import { Router } from 'express';
-import SwaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import config from "config";
 
 const router = Router();
 
-const swaggerDocument = SwaggerJsDoc({
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Caching http microservice',
-            version: '1.0.0',
-        },
-    },
-    apis: [
-        './src/routes/app/*.js',
-    ],
+/** @type Array<Object> */
+const routes = config.get('app.routes')
+
+let swaggerPaths = {};
+routes.map((route) => {
+    swaggerPaths[route.route] = {get: {responses: {200: {description: 'OK'}}}}
 })
+
+const swaggerDocument = {
+    openapi: '3.0.0',
+    info: {
+        title: 'Caching http microservice',
+        version: '1.0.0',
+    },
+    paths: swaggerPaths
+}
 
 router.use('/docs', swaggerUi.serve);
 
