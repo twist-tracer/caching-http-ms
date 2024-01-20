@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-    app: &app
+    app:
         image: "node:20-alpine"
         entrypoint: "./docker/entrypoint.sh"
         command: "./src/server.js"
@@ -12,9 +12,3 @@ services:
             - .:/app
         ports:
             - ${APP_PORT:-3001}:3001
-
-    mock:
-        <<: *app
-        command: "./src/mock-server.js"
-        ports:
-            - ${MOCK_PORT:-3002}:3002

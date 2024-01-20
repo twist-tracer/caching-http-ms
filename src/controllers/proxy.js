@@ -15,3 +15,9 @@ export const first = (req, res) => {
 
     res.send(req.path)
 };
+
+export default {
+    proxy,
+    union,
+    first,
+}
