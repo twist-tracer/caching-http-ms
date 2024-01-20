@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import controller from '../../controllers/mocks.js';
+import mocksController from '../../controllers/mocks.js';
 
 const router = Router();
 
-router.get('/getFast', controller.getFast)
+router.get('/getFast', mocksController.getFast)
 
-router.get('/getSlow', controller.getSlow)
+router.get('/getSlow', mocksController.getSlow)
 
-router.get('/getUnstable', controller.getUnstable)
+router.get('/getUnstable', mocksController.getUnstable)
 
-router.get('/getUnavailable', controller.getUnavailable)
+router.get('/getUnavailable', mocksController.getUnavailable)
 
-router.get('/getTimeout', controller.getTimeout)
+router.get('/getTimeout', mocksController.getTimeout)
 
 export default router;
