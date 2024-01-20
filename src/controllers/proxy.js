@@ -1,23 +1,21 @@
-export const proxy = (req, res) => {
-    console.log(`Handled proxy route: ${req.path}`)
+export default (service) => {
+    console.log('Controller constructed');
 
-    res.send(req.path)
-};
+    return {
+        proxy: (url) => (req, res) => {
+            console.log(`Handled proxy route: ${req.path}`)
 
-export const union = (req, res) => {
-    console.log(`Handled union route: ${req.path}`)
+            res.send(service.simpleProxy(url))
+        },
+        union: (map) => (req, res) => {
+            console.log(`Handled union route: ${req.path}`)
 
-    res.send(req.path)
-};
+            res.send(service.unionProxy(map))
+        },
+        first: (urls) => (req, res) => {
+            console.log(`Handled first route: ${req.path}`)
 
-export const first = (req, res) => {
-    console.log(`Handled first route: ${req.path}`)
-
-    res.send(req.path)
-};
-
-export default {
-    proxy,
-    union,
-    first,
+            res.send(service.firstProxy(urls))
+        },
+    }
 }
