@@ -15,7 +15,7 @@ routes.map((route) => {
 const swaggerDocument = {
     openapi: '3.0.0',
     info: {
-        title: 'Caching http microservice',
+        title: config.get('app.name'),
         version: '1.0.0',
     },
     paths: swaggerPaths
