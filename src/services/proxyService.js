@@ -2,30 +2,38 @@ export default (client) => {
     return {
         /**
          *
-         * @param {string} url
-         * @returns {`Simple proxy to ${string}`}
+         * @param {String} url
          */
-        simpleProxy: (url) => {
-            return `Simple proxy to ${url}`
+        simpleProxy: async (url) => {
+            const proxyResult = await client.get(url);
+
+            return proxyResult.data
         },
         /**
          *
          * @param {Object} map
-         * @returns {string}
          */
-        unionProxy: (map) => {
-            return `Aggregated proxy from ` + Object
-                .keys(map)
-                .map((key) => map[key])
-                .join(', ')
+        unionProxy: async (map) => {
+            let result = {};
+
+            for (let i in map) {
+                const proxyResult = await client.get(map[i]);
+
+                result[i] = proxyResult.data
+            }
+
+            return result
         },
         /**
          *
          * @param {Array} urls
-         * @returns {string}
          */
-        firstProxy: (urls) => {
-            return `First successful proxy from ` + urls.join(',')
+        firstProxy: async (urls) => {
+            const proxyResult = await Promise.any(urls.map(
+                (url) => client.get(url)
+            ))
+
+            return proxyResult.data
         }
     }
 }

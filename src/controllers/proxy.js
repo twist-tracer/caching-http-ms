@@ -3,17 +3,38 @@ export default (service) => {
         proxy: (url) => (req, res) => {
             console.log(`Handled proxy route: ${req.path}`)
 
-            res.send(service.simpleProxy(url))
+            service.simpleProxy(url).then((proxyRes) => {
+                res.send({
+                    meta: {
+                        proxyType: 'simple'
+                    },
+                    included: [proxyRes]
+                })
+            })
         },
         union: (map) => (req, res) => {
             console.log(`Handled union route: ${req.path}`)
 
-            res.send(service.unionProxy(map))
+            service.unionProxy(map).then((proxyRes) => {
+                res.send({
+                    meta: {
+                        proxyType: 'union'
+                    },
+                    included: [...Object.keys(proxyRes).map(key => proxyRes[key])]
+                })
+            })
         },
         first: (urls) => (req, res) => {
             console.log(`Handled first route: ${req.path}`)
 
-            res.send(service.firstProxy(urls))
+            service.firstProxy(urls).then((proxyRes) => {
+                res.send({
+                    meta: {
+                        proxyType: 'first'
+                    },
+                    included: [proxyRes]
+                })
+            })
         },
     }
 }

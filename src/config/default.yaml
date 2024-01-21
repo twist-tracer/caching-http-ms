@@ -12,7 +12,7 @@ app:
     - route: /getUnionResult
       union:
         user: http://localhost:3002/mocks/getSlow
-        post: http://localhost:3001/mocks/getFast
+        post: http://localhost:3002/mocks/getFast
       cache: "3600"
       timeout: 500ms
       retry: 3
@@ -21,7 +21,7 @@ app:
     - route: /getFirstResult
       first:
         - http://localhost:3002/mocks/getTimeout
-        - http://localhost:3001/mocks/getFast
+        - http://localhost:3002/mocks/getFast
       cache: "3600"
       timeout: 500ms
       retry: 3

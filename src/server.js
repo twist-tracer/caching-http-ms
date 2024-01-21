@@ -13,7 +13,7 @@ app.listen(3001, () => {
 if (process.env.NODE_ENV !== 'production') {
     const mock = express()
 
-    app.use('/mocks', mocksRouter)
+    mock.use('/mocks', mocksRouter)
 
     mock.listen(3002, () => {
         console.log(`Mock server running at http://localhost:3002`)
