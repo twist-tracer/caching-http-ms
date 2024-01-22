@@ -6,12 +6,12 @@ import proxyCacheService from "../../services/proxyCacheService.js";
 import proxyClient from "../../services/proxyClient.js";
 import swaggerRouter from './swagger.ts'
 import NodeCache from "node-cache";
-import { RouteConfig } from "../../types.js";
+import { IRouteConfig } from "../../types.js";
 
 const router: Router = Router();
 const nodeCache: NodeCache = new NodeCache();
 
-const routesConfigs: Array<RouteConfig> = config.get('app.routes')
+const routesConfigs: Array<IRouteConfig> = config.get('app.routes')
 
 routesConfigs.forEach((routeConfig) => {
     const controller = proxyController(

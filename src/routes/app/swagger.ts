@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import swaggerUi from "swagger-ui-express";
 import config from "config";
-import {RouteConfig} from "../../types.js";
+import {IRouteConfig} from "../../types.js";
 
 const router: Router = Router();
 
-const routesConfigs: Array<RouteConfig> = config.get('app.routes')
+const routesConfigs: Array<IRouteConfig> = config.get('app.routes')
 
 const swaggerPaths: {[key:string]: Object} = {};
 

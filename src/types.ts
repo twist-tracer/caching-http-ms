@@ -1,4 +1,4 @@
-export interface RouteConfig {
+export interface IRouteConfig {
     route: string;
     proxy?: string;
     union?: Map<string, string>
