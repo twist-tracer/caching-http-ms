@@ -2,8 +2,6 @@ export default (cache, proxyService, ttl) => {
     async function remember(key, ttl, callable) {
         const cachedResult = cache.get(key);
 
-        console.log('cachedResult', cachedResult);
-
         if (cachedResult) {
             return cachedResult
         }
@@ -33,7 +31,7 @@ export default (cache, proxyService, ttl) => {
          */
         unionProxy: async (map) => {
             return remember(
-                `unionProxy:${map.values().join(',')}`,
+                `unionProxy:${Object.values(map).join(',')}`,
                 ttl,
                 () => proxyService.unionProxy(map)
             )
