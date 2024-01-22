@@ -1,6 +1,6 @@
 import express, {Express} from 'express'
 import appRouter from './routes/app/index.ts'
-import mocksRouter from './routes/mocks/index.js'
+import mocksRouter from './routes/mocks/index.ts'
 
 const app: Express = express()
 

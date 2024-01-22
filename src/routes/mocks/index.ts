@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import mocksController from '../../controllers/mocks.js';
 
-const router = Router();
+const router: Router = Router();
 
 router.get('/getFast', mocksController.getFast)
 
