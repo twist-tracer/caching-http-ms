@@ -2,41 +2,48 @@ import { Router } from 'express';
 import config from "config";
 import proxyController from '../../controllers/proxy.js';
 import proxyService from "../../services/proxyService.js";
+import proxyCacheService from "../../services/proxyCacheService.js";
 import proxyClient from "../../services/proxyClient.js";
 import swaggerRouter from './swagger.js'
+import NodeCache from "node-cache";
 
 const router = Router();
+const nodeCache = new NodeCache();
 
 /** @type Array<Object> */
-const routes = config.get('app.routes')
+const routesConfigs = config.get('app.routes')
 
-routes.forEach((route) => {
+routesConfigs.forEach((routeConfig) => {
     const controller = proxyController(
-        proxyService(
-            proxyClient(
-                route.timeout,
-                route.retries,
-                route.factor,
-            )
+        proxyCacheService(
+            nodeCache,
+            proxyService(
+                proxyClient(
+                    routeConfig.timeout,
+                    routeConfig.retries,
+                    routeConfig.factor,
+                )
+            ),
+            routeConfig.cache,
         )
     );
 
     let handler;
     switch (true) {
-        case route.hasOwnProperty('proxy'):
-            handler = controller.proxy(route.proxy)
+        case routeConfig.hasOwnProperty('proxy'):
+            handler = controller.proxy(routeConfig.proxy)
             break
-        case route.hasOwnProperty('union'):
-            handler = controller.union(route.union)
+        case routeConfig.hasOwnProperty('union'):
+            handler = controller.union(routeConfig.union)
             break
-        case route.hasOwnProperty('first'):
-            handler = controller.first(route.first)
+        case routeConfig.hasOwnProperty('first'):
+            handler = controller.first(routeConfig.first)
             break
         default:
-            throw new Error(`Invalid route: ${JSON.stringify(route)}`)
+            throw new Error(`Invalid route config: ${JSON.stringify(routeConfig)}`)
     }
 
-    router.get(route.route, handler);
+    router.get(routeConfig.route, handler);
 })
 
 router.use('/', swaggerRouter)

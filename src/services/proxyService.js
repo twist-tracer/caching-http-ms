@@ -16,10 +16,10 @@ export default (client) => {
         unionProxy: async (map) => {
             let result = {};
 
-            for (let i in map) {
-                const proxyResult = await client.get(map[i]);
+            for (let key in map) {
+                const proxyResult = await client.get(map[key]);
 
-                result[i] = proxyResult.data
+                result[key] = proxyResult.data
             }
 
             return result

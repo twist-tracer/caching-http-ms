@@ -4,7 +4,7 @@ app:
   routes:
     - route: /getCachedResult
       proxy: http://localhost:3002/mocks/getSlow
-      cache: "60*1000"
+      cache: 60000
       timeout: 500ms
       retries: 3
       factor: 2
@@ -13,7 +13,7 @@ app:
       union:
         user: http://localhost:3002/mocks/getSlow
         post: http://localhost:3002/mocks/getFast
-      cache: "3600"
+      cache: 3600
       timeout: 500ms
       retry: 3
       factor: 2
@@ -22,7 +22,7 @@ app:
       first:
         - http://localhost:3002/mocks/getTimeout
         - http://localhost:3002/mocks/getFast
-      cache: "3600"
+      cache: 3600
       timeout: 500ms
       retry: 3
       factor: 2

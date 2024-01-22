@@ -3,14 +3,16 @@ export default (service) => {
         proxy: (url) => (req, res) => {
             console.log(`Handled proxy route: ${req.path}`)
 
-            service.simpleProxy(url).then((proxyRes) => {
-                res.send({
-                    meta: {
-                        proxyType: 'simple'
-                    },
-                    included: [proxyRes]
+            service
+                .simpleProxy(url)
+                .then((proxyRes) => {
+                    res.send({
+                        meta: {
+                            proxyType: 'simple'
+                        },
+                        included: [proxyRes]
+                    })
                 })
-            })
         },
         union: (map) => (req, res) => {
             console.log(`Handled union route: ${req.path}`)
