@@ -10,7 +10,7 @@ yarn install
 if [ "${1#-}" != "${1}" ] || [ -z "$(command -v "${1}")" ] || { [ -f "${1}" ] && ! [ -x "${1}" ]; }; then
   if [ "$NODE_ENV" != 'production' ]
   then
-    set -- npx nodemon --exec node --import "./ts-node-loader.js" "$@";
+    set -- npx nodemon -e js,ts,yaml --exec node --import "./ts-node-loader.js" "$@";
   else
     set -- node --import "./ts-node-loader.js" "$@"
   fi

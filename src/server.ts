@@ -1,8 +1,8 @@
-import express from 'express'
-import appRouter from './routes/app/index.js'
+import express, {Express} from 'express'
+import appRouter from './routes/app/index.ts'
 import mocksRouter from './routes/mocks/index.js'
 
-const app = express()
+const app: Express = express()
 
 app.use('/', appRouter)
 
@@ -11,7 +11,7 @@ app.listen(3001, () => {
 })
 
 if (process.env.NODE_ENV !== 'production') {
-    const mock = express()
+    const mock: Express = express()
 
     mock.use('/mocks', mocksRouter)
 

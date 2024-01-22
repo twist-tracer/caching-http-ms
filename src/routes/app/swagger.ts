@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import swaggerUi from "swagger-ui-express";
 import config from "config";
+import {RouteConfig} from "../../types.js";
 
-const router = Router();
+const router: Router = Router();
 
-/** @type Array<Object> */
-const routes = config.get('app.routes')
+const routesConfigs: Array<RouteConfig> = config.get('app.routes')
 
-let swaggerPaths = {};
-routes.map((route) => {
-    swaggerPaths[route.route] = {get: {responses: {200: {description: 'OK'}}}}
+const swaggerPaths: {[key:string]: Object} = {};
+
+routesConfigs.map((routesConfig) => {
+    swaggerPaths[routesConfig.route] = {get: {responses: {200: {description: 'OK'}}}}
 })
 
 const swaggerDocument = {
