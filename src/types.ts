@@ -1,7 +1,7 @@
 export interface IRouteConfig {
     route: string;
     proxy?: string;
-    union?: Map<string, string>
+    union?: {[key:string]: string}
     first?: Array<string>;
     cache: number;
     timeout: string;
