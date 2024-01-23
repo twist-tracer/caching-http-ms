@@ -1,24 +1,23 @@
 import { Router } from 'express';
 import config from "config";
-import proxyController from '../../controllers/proxy.js';
-import proxyService from "../../services/proxyService.js";
-import proxyCacheService from "../../services/proxyCacheService.js";
-import proxyClient from "../../services/proxyClient.js";
+import ProxyController from '../../controllers/ProxyController.ts';
+import ProxyClientFactory from "../../services/ProxyClientFactory.ts";
+import ProxyCacheService from "../../services/ProxyCacheService.ts";
+import ProxyService from "../../services/ProxyService.ts";
 import swaggerRouter from './swagger.ts'
 import NodeCache from "node-cache";
 import { IRouteConfig } from "../../types.js";
 
 const router: Router = Router();
-const nodeCache: NodeCache = new NodeCache();
 
 const routesConfigs: Array<IRouteConfig> = config.get('app.routes')
 
-routesConfigs.forEach((routeConfig) => {
-    const controller = proxyController(
-        proxyCacheService(
-            nodeCache,
-            proxyService(
-                proxyClient(
+routesConfigs.forEach((routeConfig: IRouteConfig) => {
+    const controller: ProxyController = new ProxyController(
+        new ProxyCacheService(
+            new NodeCache(),
+            new ProxyService(
+                (new ProxyClientFactory()).create(
                     routeConfig.timeout,
                     routeConfig.retries,
                     routeConfig.factor,
@@ -30,13 +29,13 @@ routesConfigs.forEach((routeConfig) => {
 
     let handler;
     switch (true) {
-        case routeConfig.hasOwnProperty('proxy'):
+        case routeConfig.proxy !== undefined:
             handler = controller.proxy(routeConfig.proxy)
             break
-        case routeConfig.hasOwnProperty('union'):
+        case routeConfig.union !== undefined:
             handler = controller.union(routeConfig.union)
             break
-        case routeConfig.hasOwnProperty('first'):
+        case routeConfig.first !== undefined:
             handler = controller.first(routeConfig.first)
             break
         default:

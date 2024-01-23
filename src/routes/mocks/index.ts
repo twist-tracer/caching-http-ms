@@ -1,16 +1,19 @@
 import { Router } from 'express';
-import mocksController from '../../controllers/mocks.js';
+import MocksController from '../../controllers/MocksController.ts';
+import { faker } from '@faker-js/faker';
 
 const router: Router = Router();
 
-router.get('/getFast', mocksController.getFast)
+const controller: MocksController = new MocksController(faker);
 
-router.get('/getSlow', mocksController.getSlow)
+router.get('/getFast', controller.getFast())
 
-router.get('/getUnstable', mocksController.getUnstable)
+router.get('/getSlow', controller.getSlow())
 
-router.get('/getUnavailable', mocksController.getUnavailable)
+router.get('/getUnstable', controller.getUnstable())
 
-router.get('/getTimeout', mocksController.getTimeout)
+router.get('/getUnavailable', controller.getUnavailable())
+
+router.get('/getTimeout', controller.getTimeout())
 
 export default router;

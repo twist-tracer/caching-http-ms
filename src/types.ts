@@ -1,10 +1,10 @@
 export interface IRouteConfig {
     route: string;
     proxy?: string;
-    union?: {[key:string]: string}
+    union?: {[key:string]: string};
     first?: Array<string>;
     cache: number;
-    timeout: string;
+    timeout: number;
     retries: number;
     factor: number;
 }
