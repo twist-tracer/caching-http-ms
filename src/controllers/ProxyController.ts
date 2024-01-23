@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {AxiosError} from "axios";
 import IProxyService from "../services/IProxyService.ts";
+import {IJsonApiObject} from "../types.js";
 
 export default class ProxyController {
     private proxyService: IProxyService;
@@ -13,12 +14,10 @@ export default class ProxyController {
         return (req: Request, res: Response): void => {
             console.log(`Handled proxy route: ${req.path}`)
 
-            const jsonApiObject = {
+            const jsonApiObject: IJsonApiObject = {
                 meta: {
                     proxyType: 'proxy'
                 },
-                included: Array,
-                errors: Array,
             }
 
             this.proxyService
@@ -43,12 +42,10 @@ export default class ProxyController {
         return (req: Request, res: Response): void => {
             console.log(`Handled union route: ${req.path}`)
 
-            const jsonApiObject = {
+            const jsonApiObject: IJsonApiObject = {
                 meta: {
                     proxyType: 'proxy'
                 },
-                included: Array,
-                errors: Array,
             }
 
             this.proxyService
@@ -73,12 +70,10 @@ export default class ProxyController {
         return (req: Request, res: Response): void => {
             console.log(`Handled union route: ${req.path}`)
 
-            const jsonApiObject = {
+            const jsonApiObject: IJsonApiObject = {
                 meta: {
                     proxyType: 'proxy'
                 },
-                included: Array,
-                errors: Array,
             }
 
             this.proxyService
