@@ -1,6 +1,8 @@
 app:
   name: Caching http microservice
 
+  port: 3001
+
   routes:
     - route: /getCachedResult
       proxy: http://localhost:3002/mocks/getSlow
@@ -26,3 +28,6 @@ app:
       timeout: 500 # ms
       retry: 3
       factor: 2
+
+mock:
+  port: 3002

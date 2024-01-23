@@ -59,10 +59,9 @@ export default class MocksController {
             res
                 .status(502)
                 .send({
-                    data: {
-                        id: faker.number.int({min: 1, max: 999}),
-                        type: 'unavailable',
-                    }
+                    errors: [
+                        'Server currently unavailable'
+                    ]
                 })
         }
     }
@@ -73,12 +72,11 @@ export default class MocksController {
         return (req: Request, res: Response): void => {
             setTimeout(
                 () => res
-                    .status(502)
+                    .status(504)
                     .send({
-                        data: {
-                            id: faker.number.int({min: 1, max: 999}),
-                            type: 'timeout',
-                        }
+                        errors: [
+                            'Timeout'
+                        ]
                     }),
                 5000
             )
