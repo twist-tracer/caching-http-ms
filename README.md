@@ -12,7 +12,7 @@ Up server
 docker-compose up -d
 ```
 
-Testing
+# Testing
 ```bash
 docker-compose exec app yarn test
 ```
