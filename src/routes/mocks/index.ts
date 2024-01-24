@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import MocksController from '../../controllers/MocksController.ts';
-import { faker } from '@faker-js/faker';
+import { Router } from "express";
+import MocksController from "controllers/MocksController.ts";
+import { faker } from "@faker-js/faker";
 
 const router: Router = Router();
 

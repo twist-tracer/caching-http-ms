@@ -1,6 +1,6 @@
-import express, {Express} from 'express'
-import appRouter from './routes/app/index.ts'
-import mocksRouter from './routes/mocks/index.ts'
+import express, {Express} from "express"
+import appRouter from "routes/app/index.ts"
+import mocksRouter from "routes/mocks/index.ts"
 import config from "config";
 
 const app: Express = express()

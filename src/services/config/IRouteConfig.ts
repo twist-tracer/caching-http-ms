@@ -1,4 +1,4 @@
-export interface IRouteConfig {
+export default interface IRouteConfig {
     route: string;
     proxy?: string;
     union?: {[key:string]: string};
@@ -7,10 +7,4 @@ export interface IRouteConfig {
     timeout: number;
     retries: number;
     factor: number;
-}
-
-export interface IJsonApiObject {
-    meta?: {[key:string]: any},
-    included?: Array<any>,
-    errors?: Array<string>,
 }

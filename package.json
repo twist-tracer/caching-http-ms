@@ -25,10 +25,12 @@
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "ts-paths-esm-loader": "^1.4.3",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "build": "node --import \"./ts-node-loader.js\"",
+    "build": "node --import \"./ts-paths-loader.js\"",
     "watch": "nodemon -e js,ts,yaml --exec yarn build",
     "test": "jest"
   }

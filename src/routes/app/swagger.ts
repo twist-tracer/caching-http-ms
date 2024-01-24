@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import { Router } from "express";
 import swaggerUi from "swagger-ui-express";
 import config from "config";
-import {IRouteConfig} from "../../types.js";
+import IRouteConfig from "services/config/IRouteConfig.ts";
 
 const router: Router = Router();
 

@@ -1,12 +1,12 @@
-import { Router } from 'express';
+import {Router} from "express";
 import config from "config";
-import ProxyController from '../../controllers/ProxyController.ts';
-import ProxyClientFactory from "../../services/ProxyClientFactory.ts";
-import ProxyCacheService from "../../services/ProxyCacheService.ts";
-import ProxyService from "../../services/ProxyService.ts";
-import swaggerRouter from './swagger.ts'
+import ProxyController from "controllers/ProxyController.ts";
+import ProxyClientFactory from "services/proxy/ProxyClientFactory.ts";
+import ProxyCacheService from "services/proxy/ProxyCacheService.ts";
+import ProxyService from "services/proxy/ProxyService.ts";
+import swaggerRouter from "routes/app/swagger.ts";
 import NodeCache from "node-cache";
-import { IRouteConfig } from "../../types.js";
+import IRouteConfig from "services/config/IRouteConfig.ts";
 
 const router: Router = Router();
 

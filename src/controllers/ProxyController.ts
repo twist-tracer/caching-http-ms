@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {AxiosError} from "axios";
-import IProxyService from "../services/IProxyService.ts";
-import {IJsonApiObject} from "../types.js";
+import IProxyService from "services/proxy/IProxyService.ts";
+import IJsonApiObject from "services/api/IJsonApiObject.ts";
 
 export default class ProxyController {
     private proxyService: IProxyService;

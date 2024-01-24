@@ -1,5 +1,5 @@
 import {AxiosInstance, AxiosResponse} from "axios";
-import IProxyService from "./IProxyService.ts";
+import IProxyService from "services/proxy/IProxyService.ts";
 
 export default class ProxyService implements IProxyService {
     private client: AxiosInstance;

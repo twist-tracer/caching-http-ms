@@ -1,6 +1,6 @@
-import ProxyService from "./ProxyService.ts";
+import ProxyService from "services/proxy/ProxyService.ts";
 import NodeCache from "node-cache";
-import IProxyService from "./IProxyService.ts";
+import IProxyService from "services/proxy/IProxyService.ts";
 
 export default class ProxyCacheService implements IProxyService {
     private nodeCache: NodeCache;

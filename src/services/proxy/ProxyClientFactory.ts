@@ -1,6 +1,5 @@
 import axios, {AxiosError, AxiosInstance} from "axios";
 import axiosRetry from "axios-retry";
-// const axiosRetry = require('axios-retry').default
 
 export default class ProxyClientFactory {
     create(timeout: number, retries: number, factor: number): AxiosInstance {
